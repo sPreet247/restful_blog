@@ -28,8 +28,30 @@ app.get('/', (req, res) => {
   res.redirect('/blogs');
 });
 
+// INDEX
 app.get('/blogs', (req, res) => {
-  res.render('index');
+  Blog.find({}, (err, blogs) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('index', { blogs: blogs });
+    }
+  });
+});
+
+// NEW
+app.get('/new', (req, res) => {
+  res.render('new');
+});
+// CREATE
+app.post('/blogs', (req, res) => {
+  Blog.create(req.body.blog, (err, newBlog) => {
+    if (err) {
+      res.render('/new');
+    } else {
+      res.redirect('/blogs');
+    }
+  });
 });
 
 app.listen(port, () => {
