@@ -5,3 +5,7 @@ i.icon {
 .ui.main.text.container.segment {
   margin-top: 8rem
 }
+
+#delete {
+  display: inline;
+}
