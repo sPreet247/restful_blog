@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const expressSanitizer = require('express-sanitizer');
 const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/rest_blog', {
@@ -10,6 +11,7 @@ mongoose.connect('mongodb://localhost:27017/rest_blog', {
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(expressSanitizer());
 const port = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs');
@@ -47,9 +49,10 @@ app.get('/new', (req, res) => {
 });
 // CREATE Route
 app.post('/blogs', (req, res) => {
+  req.body.blog.body = req.sanitize(req.body.blog.body);
   Blog.create(req.body.blog, (err, newBlog) => {
     if (err) {
-      res.render('/new');
+      res.render('new');
     } else {
       res.redirect('/blogs');
     }
@@ -80,6 +83,7 @@ app.get('/blogs/:id/edit', (req, res) => {
 
 // UPDATE Route
 app.put('/blogs/:id', (req, res) => {
+  req.body.blog.body = req.sanitize(req.body.blog.body);
   Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, updatedBlog) => {
     if (err) {
       res.redirect('/blogs');
