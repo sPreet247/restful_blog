@@ -44,7 +44,7 @@ app.get('/blogs', (req, res) => {
 });
 
 // NEW Route
-app.get('/new', (req, res) => {
+app.get('/blogs/new', (req, res) => {
   res.render('new');
 });
 // CREATE Route
