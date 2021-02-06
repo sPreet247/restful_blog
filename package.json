@@ -5,6 +5,9 @@
   "scripts": {
     "start": "node app.js"
   },
+  "engines": {
+    "node": "^S14.15.0"
+  },
   "author": "preet",
   "license": "MIT",
   "dependencies": {
@@ -13,7 +16,6 @@
     "express": "^4.17.1",
     "express-sanitizer": "^1.0.5",
     "method-override": "^3.0.0",
-    "mongoose": "^5.10.6",
-    "node": "^14.15.0"
+    "mongoose": "^5.10.6"
   }
 }
